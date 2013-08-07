@@ -17,7 +17,7 @@ class savanna::db (
   }
 
   exec { "savanna_db":
-    command => "sed -i -e \"s/connection=.*/connection=mysql+mysqldb:\/\/root:${savanna::params::db_root_password}@localhost\/${savanna::params::db_name}/g\" ${savanna_file}",
+    command => "sed -i -e \"s/connection=.*/connection=mysql+mysqldb:\/\/${savanna::params::db_user}:${savanna::params::db_password}@localhost\/${savanna::params::db_name}/g\" ${savanna_file}",
     path    => ["/bin"],
   }
 }
