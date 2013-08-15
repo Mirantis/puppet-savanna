@@ -2,13 +2,14 @@ class savanna::final (
   $savanna_dir =  "/opt/savanna-venv"
 ) {
 
-  service { "apache2":
-    enable     => true,
-    ensure     => true,
+  $service = $operatingsystem ? {
+    Fedora => 'httpd',
+    Ubuntu => 'apache2',
+    Centos => 'httpd',
   }
+
   exec { "reload":
-    command     => "/etc/init.d/apache2 restart",
-    require     => Service["apache2"],
+    command     => "/etc/init.d/${service} restart",
   }
 
   include savanna::params

@@ -1,7 +1,7 @@
 class savanna::config (
-  $horizon_file       = '/usr/share/openstack_dashboard/openstack-dashboard/settings.py',
-  $horizon_local_file = "/usr/share/openstack_dashboard/openstack-dashboard/local/local_settings.py",
-  $run_command_f      = "sed -i -e \"s/'dashboards': ('nova', 'syspanel', 'settings',),/\'dashboards\': (\'nova\', \'syspanel\', \'settings\', \'savanna\'),/g\"",
+  $horizon_file       = '/usr/share/openstack-dashboard/openstack_dashboard/settings.py',
+  $horizon_local_file = "/usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.py",
+  $run_command_f      = "sed -i -e \"s/'dashboards': ('project', 'admin',),/\'dashboards\': (\'project\', \'admin\', \'savanna\'),/g\"",
   $run_command_s      = "sed -i -e \"s/INSTALLED_APPS = (/INSTALLED_APPS = (\\n    \'savannadashboard\',/g\"",
   $savanna_url = 'SAVANNA_URL = http://localhost:8386/v1.0'
 ) {
@@ -13,7 +13,7 @@ class savanna::config (
     owner   => 'root',
     group   => 'root',
     mode    => '0664',
-    source  => "puppet:///modules/puppet-savanna/savanna.conf",
+    source  => "puppet:///modules/savanna/savanna.conf",
   }
 
   exec { "Editing horizon config":

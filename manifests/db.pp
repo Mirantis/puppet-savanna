@@ -1,12 +1,7 @@
 class savanna::db (
 ) {
-  include mysql
   include savanna::params
   $savanna_file=$savanna::params::savanna_file
-
-  class { 'mysql::server':
-    config_hash => { 'root_password' => $::savanna::params::db_root_password },
-  }
 
   mysql::db { $::savanna::params::db_name:
     user     => $::savanna::params::db_user,
