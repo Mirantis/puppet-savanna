@@ -1,0 +1,43 @@
+# Author: Max Mazur mmaxur@mirntis.com
+# 2013-08-16
+#
+ === How to use this spec files===
+
+
+
+
+All savanna services are wrappered into python virtualenv
+to avoid conficts between python libs
+
+So for each package you'll need openstack-savanna-virtualenv package.
+First of all you will need to build openstack-savanna-virtualenv package, this
+pakage just create root FS for virtualenv and need for any other part of savanna
+
+Firt step:
+rpmbuild -ba openstack-savanna-virtualenv.spec
+
+You'll get openstack-savanna-virtualenv-0.1-1.el6.x86_64.rpm, please put in  into
+SOURCE folder (e.g. /root/rpmbuild/SOURCE)
+
+
+Second step:
+To build all required packages  we need to download python sources. You can find all packets manually or use pip.
+From my point of view, the fastest way is:
+pip install --download '/path/to/SOURCEDIR' --no-install -r requirements.txt
+requirements.txt - file from savanna disribution.
+
+This command will download all requirements.
+
+
+Now we are able to build all packages.
+ 
+rpmbuild -ba <spec file> 
+
+and put rpm into SOURCE dir
+
+Please pay attantion:
+1. ALL packages will install openstack-savanna-virtualenv during build and delete aftrer success build.
+2. Some packages requires other pre-built RPMs in SOURCE dir
+3. If build failed for some reason please check and removwe openstack-savanna-virtualenv-* packages manualy
+
+
