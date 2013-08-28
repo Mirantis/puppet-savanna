@@ -1,5 +1,5 @@
 Name:          openstack-savanna-virtualenv-savanna
-Version:       0.2.a3.g05a5cfa
+Version:       0.2.a3.g05a5cfb
 Release:       1%{?dist}
 Summary:       Apache Hadoop cluster management on OpenStack
 License:       ASL 2.0
@@ -33,6 +33,7 @@ Source25:      openstack-savanna-virtualenv-python-cinderclient-1.0.5-1.el6.noar
 Source26:      openstack-savanna-virtualenv-python-keystoneclient-0.2.5-1.el6.noarch.rpm
 Source27:      openstack-savanna-virtualenv-python-jsonschema-1.3.0-1.el6.noarch.rpm
 Source28:      openstack-savanna-api
+Source29:      savanna.conf
 
 
 
@@ -67,6 +68,7 @@ Requires: openstack-savanna-virtualenv-python-oslo-config
 Requires: openstack-savanna-virtualenv-python-paramiko
 Requires: openstack-savanna-virtualenv-python-pycrypto
 Requires: openstack-savanna-virtualenv-python-argparse
+Requires: openstack-savanna-virtualenv-python-mysql
 AutoReqProv: no
 
 Prefix:         /opt/openstack-savanna
@@ -85,35 +87,34 @@ rm -rf  %{_builddir}%{prefix}
 export PYTHONPATH=$PWD:${PYTHONPATH}
 venv=%{_builddir}%{prefix}
 
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE1
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE2
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE3
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE4
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE5
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE6
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE7
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE8
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE9
-
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE10
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE11
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE12
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE13
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE14
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE15
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE16
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE17
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE18
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE19
-
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE20
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE21
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE22
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE23
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE24
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE25
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE26
-rpm -ivh --prefix=%{_builddir}%{prefix}  %SOURCE27
+rpm -ivh --prefix=%{_builddir}%{prefix}  \
+%SOURCE1 \
+%SOURCE2 \
+%SOURCE3 \
+%SOURCE4 \
+%SOURCE5 \
+%SOURCE6 \
+%SOURCE7 \
+%SOURCE8 \
+%SOURCE9 \
+%SOURCE10 \
+%SOURCE11 \
+%SOURCE12 \
+%SOURCE13 \
+%SOURCE14 \
+%SOURCE15 \
+%SOURCE16 \
+%SOURCE17 \
+%SOURCE18 \
+%SOURCE19 \
+%SOURCE20 \
+%SOURCE21 \
+%SOURCE22 \
+%SOURCE23 \
+%SOURCE24 \
+%SOURCE25 \
+%SOURCE26 \
+%SOURCE27
 
 
 
@@ -122,36 +123,37 @@ source $venv/bin/activate
 $venv/bin/pip install %SOURCE0
 
 
-# Cleanup    
-rpm -e openstack-savanna-virtualenv-python-jsonschema
-rpm -e openstack-savanna-virtualenv-python-keystoneclient
-rpm -e openstack-savanna-virtualenv-python-cinderclient
-rpm -e openstack-savanna-virtualenv-python-netaddr
-rpm -e openstack-savanna-virtualenv-python-novaclient
-rpm -e openstack-savanna-virtualenv-python-webob
-rpm -e openstack-savanna-virtualenv-python-flask
-rpm -e openstack-savanna-virtualenv-python-alembic
-rpm -e openstack-savanna-virtualenv-python-mako
-rpm -e openstack-savanna-virtualenv-python-markupsafe
-rpm -e openstack-savanna-virtualenv-python-sqlalchemy
-rpm -e openstack-savanna-virtualenv-python-eventlet
-rpm -e openstack-savanna-virtualenv-python-greenlet
-rpm -e openstack-savanna-virtualenv-python-prettytable
-rpm -e openstack-savanna-virtualenv-python-iso8601
-rpm -e openstack-savanna-virtualenv-python-d2to1
-rpm -e openstack-savanna-virtualenv-python-simplejson
-rpm -e openstack-savanna-virtualenv-python-six
-rpm -e openstack-savanna-virtualenv-python-pbr
-rpm -e openstack-savanna-virtualenv-python-requests
-rpm -e openstack-savanna-virtualenv-python-jinja2
-rpm -e openstack-savanna-virtualenv-python-werkzeug
-rpm -e openstack-savanna-virtualenv-python-oslo-config
-rpm -e openstack-savanna-virtualenv-python-paramiko
-rpm -e openstack-savanna-virtualenv-python-pycrypto
-rpm -e openstack-savanna-virtualenv-python-argparse
-rpm -e openstack-savanna-virtualenv
+# Cleanup
+rpm -e \
+openstack-savanna-virtualenv-python-jsonschema \
+openstack-savanna-virtualenv-python-keystoneclient \
+openstack-savanna-virtualenv-python-cinderclient \
+openstack-savanna-virtualenv-python-netaddr \
+openstack-savanna-virtualenv-python-novaclient \
+openstack-savanna-virtualenv-python-webob \
+openstack-savanna-virtualenv-python-flask \
+openstack-savanna-virtualenv-python-alembic \
+openstack-savanna-virtualenv-python-mako \
+openstack-savanna-virtualenv-python-markupsafe \
+openstack-savanna-virtualenv-python-sqlalchemy \
+openstack-savanna-virtualenv-python-eventlet \
+openstack-savanna-virtualenv-python-greenlet \
+openstack-savanna-virtualenv-python-prettytable \
+openstack-savanna-virtualenv-python-iso8601 \
+openstack-savanna-virtualenv-python-d2to1 \
+openstack-savanna-virtualenv-python-simplejson \
+openstack-savanna-virtualenv-python-six \
+openstack-savanna-virtualenv-python-pbr \
+openstack-savanna-virtualenv-python-requests \
+openstack-savanna-virtualenv-python-jinja2 \
+openstack-savanna-virtualenv-python-werkzeug \
+openstack-savanna-virtualenv-python-oslo-config \
+openstack-savanna-virtualenv-python-paramiko \
+openstack-savanna-virtualenv-python-pycrypto \
+openstack-savanna-virtualenv-python-argparse \
+openstack-savanna-virtualenv
 
-    
+
 cd %{_builddir}/opt
 for FILE in `find . -name *.pyc`
 do
@@ -179,34 +181,44 @@ ln -s lib lib64
 
 # 
 %install
-HOME=%{_sharedstatedir}/savanna
-install -d -m 700 %{buildroot}$HOME
-# TODO: os_admin_username/password/tenant_name
-#SAMPLE=%{buildroot}%{prefix}%{_datadir}/savanna/savanna.conf.sample
-SAMPLE=%{_builddir}%{prefix}/share/savanna/savanna.conf.sample
-CONF=%{_builddir}%{_sysconfdir}/savanna/savanna.conf
 
-install -d -m 755 $(dirname $CONF)
-install -D -m 640 $SAMPLE $CONF
-
-sed -i -e "s,^connection=.*,connection=sqlite:///$HOME/savanna-server.db," $CONF
 
 
 mkdir -p %{buildroot}/var/log/savanna
 mkdir -p %{buildroot}/var/lib/savanna
 mkdir -p %{buildroot}/var/run/savanna
+mkdir -p %{buildroot}/etc/savanna/
+mkdir -p %{buildroot}/etc/init.d
+
+
+# install init scripts
+SAMPLE=%{_builddir}%{prefix}/share/savanna/savanna.conf.sample
+
+install -p -D -m 755 %{SOURCE28} %{buildroot}%{_initrddir}/openstack-savanna-api
+install -p -D -m 640 %{SOURCE29} %{buildroot}%{_sysconfdir}/savanna/savanna.conf
+install -p -D -m 640 $SAMPLE %{buildroot}%{_sysconfdir}/savanna/savanna.conf.sample
+
+
+sed -i -e "s,^connection=.*,connection=sqlite:///$HOME/savanna-server.db," %{buildroot}%{_sysconfdir}/savanna/savanna.conf
+
 
 mkdir -p %{buildroot}/etc/init.d
-cp %SOURCE28 %{buildroot}/etc/init.d/
 
 cp -r %{_builddir}/opt %{buildroot}/
-cp -r %{_builddir}/etc %{buildroot}/
 
 
+%pre
+USERNAME=savanna
+GROUPNAME=$USERNAME
+HOMEDIR=%{prefix}
+getent group $GROUPNAME >/dev/null || groupadd -r $GROUPNAME
+getent passwd $USERNAME >/dev/null || \
+  useradd -r -g $GROUPNAME -G $GROUPNAME -d $HOMEDIR -s /sbin/nologin \
+  -c "Murano Daemons" $USERNAME
+exit 0
 
 
 %post
-
 # determine where package installed, need to know prefix
 # RPM ca
 real_prefix=`rpm -q --queryformat "%{instprefixes}\n" %{name} | tail -n1`
@@ -250,12 +262,14 @@ EOF
 # Note: this file is not readable because it holds auth credentials
 %config(noreplace) %attr(-, root, savanna) %{_sysconfdir}/savanna/savanna.conf
 %config(noreplace) %attr(-, root, savanna) /etc/savanna/savanna.conf
+%config(noreplace) %attr(-, root, savanna) /etc/savanna/savanna.conf.sample
 %dir %attr(-, savanna, savanna) %{_sharedstatedir}/savanna
+
+%config(noreplace) %attr(-, root, murano) %{_initrddir}/openstack-savanna-api
 
 %dir %attr(-, savanna, savanna) /var/log/savanna
 %dir %attr(-, savanna, savanna) /var/lib/savanna
 %dir %attr(-, savanna, savanna) /var/run/savanna
-%config /etc/init.d/*
 %{prefix}
 
 %clean

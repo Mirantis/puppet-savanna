@@ -19,7 +19,7 @@ Virtual Environment for openstack-savanna
 
 
 %build
-rm -rf  %{_builddir}%{prefix}
+rm -rf  %{_builddir}/*
 
 
 export PYTHONPATH=$PWD:${PYTHONPATH}
